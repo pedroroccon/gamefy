@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'igdb' => [
+        'endpoint' => env('IGDB_API_ENDPOINT'), 
+        'key' => env('IGDB_KEY')
+    ]
+
 ];
