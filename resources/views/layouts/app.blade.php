@@ -28,7 +28,7 @@
                     <div class="relative">
                         <input type="text" class="bg-gray-800 text-sm rounded-full focus:outline-none focus:shadow-outline w-64 px-3 pl-8 py-1" placeholder="Search game...">
 
-                        <div class="absolute top-1 flex-items-center h-full ml-2">
+                        <div class="absolute top-0 flex-items-center h-full ml-2">
                             <i class="fas fa-search fa-fw text-gray-400"></i>
                         </div>
                     </div>
