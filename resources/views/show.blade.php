@@ -5,10 +5,10 @@
     <div class="container mx-auto px-4">
         <div class="game-details border-b border-gray-800 pb-12 flex flex-col lg:flex-row">
             <div class="flex-none">
-                <img src="{{ asset('images/sample-game-cover.png') }}" alt="Cover" class="rounded-lg">
+                <img src="{{ asset('images/sample-game-cover.png') }}" alt="Cover" class="rounded-lg w-64">
             </div>
 
-            <div class="lg:ml-12 lg:mr-32">
+            <div class="lg:ml-12 lg:mr-64">
                 <h2 class="font-semibold text-4xl leading-title mt-1">Sample game title</h2>
                 <div class="text-gray-400">
                     <span>Adventure, RPG</span> &middot; 
