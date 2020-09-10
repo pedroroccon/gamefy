@@ -9,6 +9,8 @@
         <!-- Fonts -->
         <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/fontawesome.css') }}">
+
+        @livewireStyles
     </head>
     <body class="bg-gray-900 text-white">
 
@@ -49,5 +51,6 @@
             </div>
         </footer>
 
+        @livewireScripts
     </body>
 </html>
