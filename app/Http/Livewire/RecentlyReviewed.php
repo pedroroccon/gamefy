@@ -10,7 +10,7 @@ class RecentlyReviewed extends Component
     public $recentlyReviewed = [];
 
     public function loadRecentlyReviewed()
-    {
+    {        
         $this->recentlyReviewed = Http::withHeaders([
             'user-key' => config('services.igdb.key')
         ])->withOptions([
