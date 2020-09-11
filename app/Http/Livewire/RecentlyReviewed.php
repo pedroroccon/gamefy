@@ -15,7 +15,7 @@ class RecentlyReviewed extends Component
             'user-key' => config('services.igdb.key')
         ])->withOptions([
             'body' => "
-                fields name, cover.url, first_release_date, popularity, platforms.abbreviation, rating, rating_count, summary;
+                fields name, cover.url, first_release_date, popularity, platforms.abbreviation, rating, rating_count, summary, slug;
                 where platforms = (48,49,130,6) 
                 & (first_release_date >= " . now()->subYear()->timestamp . "
                 & first_release_date < " . now()->timestamp . "
