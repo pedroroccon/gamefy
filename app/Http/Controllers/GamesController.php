@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class GamesController extends Controller
 {
@@ -57,9 +58,47 @@ class GamesController extends Controller
 
         abort_if( ! $game, 404);
 
-        $game = $game[0];
+        $game = $this->formatGameForView($game[0]);
         
         return view('show', compact('game'));
+    }
+
+    protected function formatGameForView($game)
+    {
+        return collect($game)->merge([
+            'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
+            'genres' => implode(', ', collect($game['genres'])->pluck('name')->toArray()), 
+            'involved_companies' => $game['involved_companies'][0]['company']['name'], 
+            'platforms' => implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()), 
+            'rating' => isset($game['rating']) ? round($game['rating']) . '%' : '0%', 
+            'aggregated_rating' => isset($game['aggregated_rating']) ? round($game['aggregated_rating']) . '%' : '0%', 
+            'trailer' => 'https://youtube.com/watch/' . $game['videos'][0]['video_id'], 
+            'screenshots' => collect($game['screenshots'])->map(function($screenshot) {
+                return [
+                    'big' => Str::replaceFirst('thumb', 'screenshot_huge', $screenshot['url']), 
+                    'huge' => isset($screenshot['url']) ? Str::replaceFirst('thumb', 'screenshot_big', $screenshot['url']) : asset('images/sample-game-cover.png')
+                ];
+            })->take(9), 
+            'similar_games' => collect($game['similar_games'])->map(function($game) {
+                return collect($game)->merge([
+                    'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
+                    'rating' => isset($game['rating']) ? round($game['rating']) . '%' : null, 
+                    'platforms' => implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()), 
+                ]);
+            })->take(6), 
+            'social' => [
+                'website' => collect($game['websites'])->first(), 
+                'facebook' => collect($game['websites'])->filter(function ($website) {
+                    return Str::contains($website['url'], 'facebook');
+                })->first(), 
+                'twitter' => collect($game['websites'])->filter(function ($website) {
+                    return Str::contains($website['url'], 'twitter');
+                })->first(), 
+                'instagram' => collect($game['websites'])->filter(function ($website) {
+                    return Str::contains($website['url'], 'instagram');
+                })->first(), 
+            ]
+        ]);
     }
 
     /**
