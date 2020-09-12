@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class MostAnticipated extends Component
 {
@@ -11,7 +13,7 @@ class MostAnticipated extends Component
 
     public function loadMostAnticipated()
     {
-        $this->mostAnticipated = Http::withHeaders([
+        $mostAnticipatedUnformatted = Http::withHeaders([
             'user-key' => config('services.igdb.key')
         ])->withOptions([
             'body' => "
@@ -23,10 +25,22 @@ class MostAnticipated extends Component
                 limit 4;
             "
         ])->get(config('services.igdb.endpoint'))->json();
+
+        $this->mostAnticipated = $this->formatForView($mostAnticipatedUnformatted);
     }
 
     public function render()
     {
         return view('livewire.most-anticipated');
+    }
+
+    protected function formatForView($games)
+    {
+        return collect($games)->map(function($game) {
+            return collect($game)->merge([
+                'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_small', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
+                'first_release_date' => Carbon::parse($game['first_release_date'])->format('M d, Y'), 
+            ]);
+        });
     }
 }

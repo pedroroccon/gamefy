@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class PopularGames extends Component
 {
@@ -12,7 +13,7 @@ class PopularGames extends Component
 
     public function loadPopularGames()
     {
-        $this->popularGames = cache()->remember('popular-games', 7, function() {
+        $popularGamesUnformatted = cache()->remember('popular-games', 7, function() {
             return Http::withHeaders([
                 'user-key' => config('services.igdb.key')
             ])->withOptions([
@@ -25,11 +26,24 @@ class PopularGames extends Component
                     limit 12;
                 "
             ])->get(config('services.igdb.endpoint'))->json();
-        });        
+        });
+
+        $this->popularGames = $this->formatForView($popularGamesUnformatted);
     }
 
     public function render()
     {
         return view('livewire.popular-games');
+    }
+
+    protected function formatForView($games)
+    {
+        return collect($games)->map(function($game) {
+            return collect($game)->merge([
+                'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
+                'rating' => isset($game['rating']) ? round($game['rating']) . '%' : null, 
+                'platforms' => implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()), 
+            ]);
+        });
     }
 }
