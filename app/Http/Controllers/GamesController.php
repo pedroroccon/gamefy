@@ -58,8 +58,6 @@ class GamesController extends Controller
 
         abort_if( ! $game, 404);
 
-        dump($game);
-
         $game = $this->formatGameForView($game[0]);
         
         return view('show', compact('game'));
