@@ -18,7 +18,7 @@
                         {{ $game['involved_companies'] }}
                     </span> &middot; 
                     <span>
-                     {{ $game['platforms'] }}
+                     {{ $game['platforms'] ?? 'Not defined' }}
                     </span>
                 </div>
 

@@ -58,6 +58,8 @@ class GamesController extends Controller
 
         abort_if( ! $game, 404);
 
+        dump($game);
+
         $game = $this->formatGameForView($game[0]);
         
         return view('show', compact('game'));
@@ -83,7 +85,7 @@ class GamesController extends Controller
                 return collect($game)->merge([
                     'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
                     'rating' => isset($game['rating']) ? round($game['rating']) . '%' : null, 
-                    'platforms' => implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()), 
+                    'platforms' => isset($game['platforms']) ? implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()) : null, 
                 ]);
             })->take(6), 
             'social' => [

@@ -12,3 +12,10 @@ IGDB_KEY=****
 ```
 ## Ready?
 So that's it! You're ready to go!
+
+## Testing
+If you want to test the application, use the following command:
+
+```
+php artisan test
+```
