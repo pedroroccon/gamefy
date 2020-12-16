@@ -13,18 +13,16 @@ class MostAnticipated extends Component
 
     public function loadMostAnticipated()
     {
-        $mostAnticipatedUnformatted = Http::withHeaders([
-            'user-key' => config('services.igdb.key')
-        ])->withOptions([
-            'body' => "
-                fields name, cover.url, first_release_date, popularity, platforms.abbreviation, rating, rating_count, summary, slug;
+        $mostAnticipatedUnformatted = Http::withHeaders(config('services.igdb.auth'))->withBody(
+            "
+                fields name, cover.url, first_release_date, total_rating_count, platforms.abbreviation, rating, rating_count, summary, slug;
                 where platforms = (48,49,130,6) 
                 & (first_release_date >= " . now()->timestamp . "
                 & first_release_date < " . now()->addMonths(6)->timestamp . ");
-                sort popularity desc;
+                sort total_rating_count desc;
                 limit 4;
-            "
-        ])->get(config('services.igdb.endpoint'))->json();
+            ", 'text/plain'
+        )->post(config('services.igdb.endpoint'))->json();
 
         $this->mostAnticipated = $this->formatForView($mostAnticipatedUnformatted);
     }

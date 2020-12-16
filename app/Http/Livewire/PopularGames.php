@@ -14,18 +14,16 @@ class PopularGames extends Component
     public function loadPopularGames()
     {
         $popularGamesUnformatted = cache()->remember('popular-games', 7, function() {
-            return Http::withHeaders([
-                'user-key' => config('services.igdb.key')
-            ])->withOptions([
-                'body' => "
-                    fields name, cover.url, first_release_date, popularity, platforms.abbreviation, rating, slug;
-                    where platforms = (48,49,130,6) 
-                    & (first_release_date >= " . now()->subYear()->timestamp . "
-                    & first_release_date < " . now()->addMonths(6)->timestamp . ");
-                    sort popularity desc;
-                    limit 12;
+            return Http::withHeaders(config('services.igdb.auth'))->withBody(
                 "
-            ])->get(config('services.igdb.endpoint'))->json();
+                    fields name, cover.url, first_release_date, total_rating_count, platforms.abbreviation, rating, slug;
+                    where platforms = (48,49,130,6)
+                    & (first_release_date >= " . now()->subYear()->timestamp . "
+                    & first_release_date < " . now()->addMonths(6)->timestamp . "
+                    & total_rating_count > 5);
+                    sort total_rating_count desc;
+                    limit 12;", 'text/plain'
+                )->post(config('services.igdb.endpoint'))->json();
         });
 
         $this->popularGames = $this->formatForView($popularGamesUnformatted);

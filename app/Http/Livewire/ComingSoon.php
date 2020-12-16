@@ -13,18 +13,15 @@ class ComingSoon extends Component
 
     public function loadComingSoon()
     {
-        $comingSoonUnformatted = Http::withHeaders([
-            'user-key' => config('services.igdb.key')
-        ])->withOptions([
-            'body' => "
-                fields name, cover.url, first_release_date, popularity, platforms.abbreviation, rating, rating_count, summary, slug;
+        $comingSoonUnformatted = Http::withHeaders(config('services.igdb.auth'))->withBody(
+            "
+                fields name, cover.url, first_release_date, platforms.abbreviation, rating, rating_count, summary, slug;
                 where platforms = (48,49,130,6) 
-                & (first_release_date >= " . now()->timestamp . "
-                & popularity > 5);
+                & (first_release_date >= " . now()->timestamp . ");
                 sort first_release_date asc;
                 limit 4;
-            "
-        ])->get(config('services.igdb.endpoint'))->json();
+            ", 'text/plain'
+        )->post(config('services.igdb.endpoint'))->json();
 
         $this->comingSoon = $this->formatForView($comingSoonUnformatted);
     }

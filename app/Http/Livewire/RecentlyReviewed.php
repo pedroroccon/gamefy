@@ -12,19 +12,17 @@ class RecentlyReviewed extends Component
 
     public function loadRecentlyReviewed()
     {        
-        $recentlyReviewedUnformatted = Http::withHeaders([
-            'user-key' => config('services.igdb.key')
-        ])->withOptions([
-            'body' => "
-                fields name, cover.url, first_release_date, popularity, platforms.abbreviation, rating, rating_count, summary, slug;
+        $recentlyReviewedUnformatted = Http::withHeaders(config('services.igdb.auth'))->withBody(
+            "
+                fields name, cover.url, first_release_date, total_rating_count, platforms.abbreviation, rating, rating_count, summary, slug;
                 where platforms = (48,49,130,6) 
                 & (first_release_date >= " . now()->subYear()->timestamp . "
                 & first_release_date < " . now()->timestamp . "
                 & rating_count > 5);
-                sort popularity desc;
+                sort total_rating_count desc;
                 limit 3;
-            "
-        ])->get(config('services.igdb.endpoint'))->json();
+            ", 'text/plain'
+        )->post(config('services.igdb.endpoint'))->json();
 
         $this->recentlyReviewed = $this->formatForView($recentlyReviewedUnformatted);
     }

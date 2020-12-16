@@ -32,7 +32,10 @@ return [
 
     'igdb' => [
         'endpoint' => env('IGDB_API_ENDPOINT'), 
-        'key' => env('IGDB_KEY')
+        'auth' => [
+            'Client-ID' => env('IGDB_CLIENT_ID'), 
+            'Authorization' => 'Bearer ' . env('IGDB_TOKEN'), 
+        ]
     ]
 
 ];
