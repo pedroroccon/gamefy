@@ -7,7 +7,7 @@
                 </a>
 
                 @if ($game['rating'])
-                    <div id="review_{{ $game['slug'] }}" class="absolute bottom-0 right-0 w-16 h-16 bg-gray-900 rounded-full -mr-5 -mb-5">
+                    <div id="review_{{ $game['slug'] }}" class="absolute bottom-0 right-0 w-16 h-16 bg-gray-900 rounded-full -mr-5 -mb-5 text-sm">
                     </div>
                 @endif
             </div>
