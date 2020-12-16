@@ -25,6 +25,16 @@ class RecentlyReviewed extends Component
         )->post(config('services.igdb.endpoint'))->json();
 
         $this->recentlyReviewed = $this->formatForView($recentlyReviewedUnformatted);
+        
+        // TODO: Add rating animations for recently reviewed
+        // collect($this->recentlyReviewed)->filter(function($game) {
+        //     return $game['rating'];
+        // })->each(function($game) {
+        //     $this->emit('gameWithRatingFetched', [
+        //         'slug' => $game['slug'], 
+        //         'rating' => $game['rating'] / 100
+        //     ]);
+        // });
     }
 
     public function render()
@@ -37,7 +47,7 @@ class RecentlyReviewed extends Component
         return collect($games)->map(function($game) {
             return collect($game)->merge([
                 'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
-                'rating' => isset($game['rating']) ? round($game['rating']) . '%' : null, 
+                'rating' => isset($game['rating']) ? round($game['rating']) : null, 
                 'platforms' => implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()), 
             ]);
         });
