@@ -3,12 +3,11 @@
         <div class="game bg-gray-800 rounded-lg shadow-md flex px-6 py-6">
             <div class="relative flex-none">
                 <a href="{{ route('games.show', $game['slug']) }}">
-                    <img src="{{ $game['cover_image_url'] }}" alt="Game cover" class="w-48 hover:opacity-75 transition ease-in-out duration-150 rounded-lg">
+                    <img src="{{ $game['cover_image_url'] }}" alt="Game cover" class="transform w-48 hover:opacity-75 hover:scale-110 transition ease-in-out duration-150 rounded-lg">
                 </a>
 
                 @if ($game['rating'])
-                    <div class="absolute bottom-0 right-0 w-16 h-16 bg-gray-900 rounded-full -mr-5 -mb-5">
-                        <div class="font-semibold text-xs flex justify-center items-center h-full">{{ $game['rating'] }}</div>
+                    <div id="review_{{ $game['slug'] }}" class="absolute bottom-0 right-0 w-16 h-16 bg-gray-900 rounded-full -mr-5 -mb-5">
                     </div>
                 @endif
             </div>
@@ -41,3 +40,9 @@
         @endforeach
     @endforelse
 </div>
+
+@push('scripts')
+	@include('partials.rating', [
+		'event' => 'reviewGameWithRatingFetched'
+	])
+@endpush

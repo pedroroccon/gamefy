@@ -1,6 +1,6 @@
 <script>
     
-    @if ($event) window.livewire.on('gameWithRatingFetched', params => { @endif
+    @if ($event) window.livewire.on('{{ $event }}', params => { @endif
 
     @if ($event)
         var progressBarContainer = document.getElementById(params.slug);

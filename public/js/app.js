@@ -20355,8 +20355,8 @@ window.ProgressBar = __webpack_require__(/*! progressbar.js */ "./node_modules/p
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/laravel/gamefy/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/laravel/gamefy/resources/css/main.css */"./resources/css/main.css");
+__webpack_require__(/*! C:\web\htdocs\gamefy\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\web\htdocs\gamefy\resources\css\main.css */"./resources/css/main.css");
 
 
 /***/ })

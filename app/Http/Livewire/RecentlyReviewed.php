@@ -26,15 +26,14 @@ class RecentlyReviewed extends Component
 
         $this->recentlyReviewed = $this->formatForView($recentlyReviewedUnformatted);
         
-        // TODO: Add rating animations for recently reviewed
-        // collect($this->recentlyReviewed)->filter(function($game) {
-        //     return $game['rating'];
-        // })->each(function($game) {
-        //     $this->emit('gameWithRatingFetched', [
-        //         'slug' => $game['slug'], 
-        //         'rating' => $game['rating'] / 100
-        //     ]);
-        // });
+        collect($this->recentlyReviewed)->filter(function($game) {
+            return $game['rating'];
+        })->each(function($game) {
+            $this->emit('reviewGameWithRatingFetched', [
+                'slug' => 'review_' . $game['slug'], 
+                'rating' => $game['rating'] / 100
+            ]);
+        });
     }
 
     public function render()
