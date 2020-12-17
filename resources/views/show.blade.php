@@ -92,34 +92,78 @@
 
                     <p class="mt-12">{{ $game['summary'] }}</p>
                 
-                    <div class="mt-12">
-                        <!-- <button class="flex bg-blue-500 text-white font-semibold px-6 py-4 hover:bg-blue-600 rounded transition ease-in-out duration-150">
+                    <div class="mt-12" x-data="{ isTrailerModalVisible: false }">
+                        <button @click="isTrailerModalVisible = true" class="inline-flex bg-blue-500 text-white font-semibold px-6 py-4 hover:bg-blue-600 rounded transition ease-in-out duration-150">
                             <i class="far fa-play-circle fa-fw mr-4 mt-1"></i> Play Trailer
-                        </button> -->
+                        </button>
 
-                        <a href="{{ $game['trailer'] }}" target="_blank" class="inline-flex bg-blue-500 text-white font-semibold px-6 py-4 hover:bg-blue-600 rounded transition ease-in-out duration-150">
-                            <i class="far fa-play-circle fa-fw mr-4 mt-1"></i> Play Trailer
-                        </a>
+                        <template x-if="isTrailerModalVisible">
+                            <div class="z-50 fixed top-0 left-0 w-full h-full flex items-center shadow-lg overflow-y-auto bg-black bg-opacity-75">
+                                <div class="container mx-auto lg:px-32 rounded-lg overflow-y-auto">
+                                    <div class="bg-gray-900 rounded">
+                                        <div class="flex justify-end p-4">
+                                            <button
+                                                @click="isTrailerModalVisible = false"
+                                                @keydown.escape.window="isTrailerModalVisible = false"
+                                                class="hover:text-gray-300"
+                                            >
+                                                <i class="far fa-times-circle fa-fw fa-lg"></i>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body px-8 py-8">
+                                            <div class="responsive-container overflow-hidden relative" style="padding-top: 56.25%">
+                                                <iframe width="560" height="315" class="responsive-iframe absolute top-0 left-0 w-full h-full" src="{{ $game['trailer'] }}" style="border:0;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="images-container border-b border-gray-800 pb-12 mt-8">
+        <div class="images-container border-b border-gray-800 pb-12 mt-8" x-data="{ isImageModalVisible: false, image: '' }">
             <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Images</h2>
 
-            <div class="grid grid-cols-1 md:grid-col-s3 lg:grid-cols-3 gap-12 mt-8">
-                
-                <!-- Just for test -->
+            <div class="grid grid-cols-1 md:grid-col-s3 lg:grid-cols-3 gap-12 mt-8">                
                 @foreach($game['screenshots'] as $screenshot)
-                <div>
-                    <a href="{{ $screenshot['huge'] }}">
-                        <img src="{{ $screenshot['big'] }}" alt="Game screenshot" class="hover:opacity-75 transition ease-in-out duration-150 rounded-lg">
-                    </a>
-                </div>
+                    <div>
+                        <a
+                            href="#" 
+                            @click.prevent="
+                                isImageModalVisible = true
+                                image = '{{ $screenshot['huge'] }}'
+                            "
+                        >
+                            <img src="{{ $screenshot['big'] }}" alt="Game screenshot" class="hover:opacity-75 transition ease-in-out duration-150 rounded-lg">
+                        </a>
+                    </div>
                 @endforeach
 
             </div>
+            <template x-if="isImageModalVisible">
+                <div class="z-50 fixed top-0 left-0 w-full h-full flex items-center shadow-lg overflow-y-auto bg-black bg-opacity-75">
+                    <div class="container mx-auto lg:px-32 rounded-lg overflow-y-auto">
+                        <div class="bg-gray-900 rounded">
+                            <div class="flex justify-end p-4">
+                                <button
+                                    @click="isImageModalVisible = false"
+                                    @keydown.escape.window="isImageModalVisible = false"
+                                    class="hover:text-gray-300"
+                                >
+                                    <i class="far fa-times-circle fa-fw fa-lg"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body px-8 py-8">
+                                <img :src="image" alt="screenshot">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
         </div>
 
         <div class="similar-games-container pb-12 mt-8">

@@ -71,7 +71,7 @@ class GamesController extends Controller
             'platforms' => implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()), 
             'rating' => isset($game['rating']) ? round($game['rating']) : 0, 
             'aggregated_rating' => isset($game['aggregated_rating']) ? round($game['aggregated_rating']) : 0, 
-            'trailer' => isset($game['videos']) ? 'https://youtube.com/watch/' . $game['videos'][0]['video_id'] : null, 
+            'trailer' => isset($game['videos']) ? 'https://youtube.com/embed/' . $game['videos'][0]['video_id'] : null, 
             'screenshots' => collect($game['screenshots'])->map(function($screenshot) {
                 return [
                     'big' => Str::replaceFirst('thumb', 'screenshot_huge', $screenshot['url']), 
