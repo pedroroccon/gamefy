@@ -59,7 +59,7 @@
 
                         @if ($game['social']['website'])
                             <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
-                                <a href="{{ $game['social']['website']['url'] }}" class="hover:text-gray-400">
+                                <a href="{{ $game['social']['website']['url'] }}" class="hover:text-gray-400" target="_blank">
                                     <i class="fas fa-globe-americas fa-fw"></i>
                                 </a>
                             </div>
@@ -97,7 +97,7 @@
                             <i class="far fa-play-circle fa-fw mr-4 mt-1"></i> Play Trailer
                         </button> -->
 
-                        <a href="{{ $game['trailer'] }}" class="inline-flex bg-blue-500 text-white font-semibold px-6 py-4 hover:bg-blue-600 rounded transition ease-in-out duration-150">
+                        <a href="{{ $game['trailer'] }}" target="_blank" class="inline-flex bg-blue-500 text-white font-semibold px-6 py-4 hover:bg-blue-600 rounded transition ease-in-out duration-150">
                             <i class="far fa-play-circle fa-fw mr-4 mt-1"></i> Play Trailer
                         </a>
                     </div>

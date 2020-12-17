@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ env('APP_NAME') }} - Video Games Website</title>
+        <title>{{ config('app.name') }} - Video Games Database</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -29,13 +29,7 @@
                 </div>
 
                 <div class="flex items-center mt-6 lg:mt-0">
-                    <div class="relative">
-                        <input type="text" class="bg-gray-800 text-sm rounded-full focus:outline-none focus:shadow-outline w-64 px-3 pl-8 py-2" placeholder="Search game...">
-
-                        <div class="absolute top-0 flex-items-center h-full ml-2">
-                            <i class="fas fa-search fa-fw text-gray-400"></i>
-                        </div>
-                    </div>
+                    <livewire:search-dropdown>
                     <div class="ml-6">
                         <a href="#"><img src="{{ asset('images/sample-avatar.png') }}" alt="Avatar" class="rounded-full w-8"></a>
                     </div>

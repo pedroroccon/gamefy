@@ -62,7 +62,8 @@ class GamesController extends Controller
     }
 
     protected function formatGameForView($game)
-    {        
+    {
+        // TODO: Sometimes we don't have the fields like videos, websites, etc... We should refactor this part of code.
         return collect($game)->merge([
             'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
             'genres' => implode(', ', collect($game['genres'])->pluck('name')->toArray()), 
@@ -70,7 +71,7 @@ class GamesController extends Controller
             'platforms' => implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()), 
             'rating' => isset($game['rating']) ? round($game['rating']) : 0, 
             'aggregated_rating' => isset($game['aggregated_rating']) ? round($game['aggregated_rating']) : 0, 
-            'trailer' => 'https://youtube.com/watch/' . $game['videos'][0]['video_id'], 
+            'trailer' => isset($game['videos']) ? 'https://youtube.com/watch/' . $game['videos'][0]['video_id'] : null, 
             'screenshots' => collect($game['screenshots'])->map(function($screenshot) {
                 return [
                     'big' => Str::replaceFirst('thumb', 'screenshot_huge', $screenshot['url']), 
