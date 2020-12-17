@@ -19,9 +19,9 @@
         <header class="border-b border-gray-800">
             <nav class="container mx-auto flex flex-col lg:flex-row items-center justify-between px-4 py-6">
                 <div class="flex flex-col lg:flex-row items-center">
-                    <a href="{{ url('/') }}"><img src="{{ asset('svgs/logo.svg') }}" alt="{{ env('APP_NAME') }}" class="w-8 flex-none"></a>
+                    <a href="{{ url('/') }}" class="font-black uppercase tracking-widest">{{ config('app.name') }}</a>
 
-                    <ul class="flex ml-0 lg:ml-16 space-x-8 mt-6 lg:mt-0">
+                    <ul class="flex ml-0 lg:ml-10 space-x-8 mt-6 lg:mt-0">
                         <li><a href="{{ url('/') }}" class="hover:text-gray-400">Games</a></li>
                         <!-- <li><a href="#" class="hover:text-gray-400">Reviews</a></li> -->
                         <!-- <li><a href="#" class="hover:text-gray-400">Coming Soon</a></li> -->
@@ -47,6 +47,7 @@
                     <span>Powered by <a href="https://www.igdb.com/discover" target="_blank" class="underline hover:text-gray-400">IGDB</a></span>
                     <span><a href="https://github.com/pedroroccon/gamefy" target="_blank" class="underline hover:text-gray-400"><i class="fab fa-github fa-fw mr-2"></i>Github</a></span>
                     <span>Developed by <a href="mailto:pedro@pedroroccon.com.br" class="underline hover:text-gray-400">Pedro Roccon</a></span>
+                    <span>Icons by Font Awesome and Freepik</span>
                 </div>
             </div>
         </footer>
