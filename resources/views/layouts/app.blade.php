@@ -13,6 +13,8 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/fontawesome.css') }}">
 
         @livewireStyles
+
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     </head>
     <body class="bg-gray-900 text-white">
 
@@ -23,8 +25,8 @@
 
                     <ul class="flex ml-0 lg:ml-10 space-x-8 mt-6 lg:mt-0">
                         <li><a href="{{ url('/') }}" class="hover:text-gray-400">Games</a></li>
-                        <!-- <li><a href="#" class="hover:text-gray-400">Reviews</a></li> -->
-                        <!-- <li><a href="#" class="hover:text-gray-400">Coming Soon</a></li> -->
+                        <li><a href="#" class="hover:text-gray-400">Reviews</a></li>
+                        <li><a href="#" class="hover:text-gray-400">Coming Soon</a></li>
                     </ul>
                 </div>
 
