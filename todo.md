@@ -9,3 +9,4 @@ Some ideias to make the application better.
 [] Refactor some components like modals (for trailers and screenshots);
 [] Add locales to the application;
 [] Some old games does not have all the complete informations making the app crashes or layout breaks;
+[] Upgrade from Laravel 7 to 8;
