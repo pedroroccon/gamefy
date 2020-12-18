@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', $game['name'])
 
 @section('content')
 	
@@ -175,6 +176,12 @@
                 @endforeach
             </div>
         </div>
+
+        @push('scripts')
+            @include('partials.rating', [
+                'event' => 'gameWithRatingFetched'
+            ])
+        @endpush
     </div>
 	
 @endsection

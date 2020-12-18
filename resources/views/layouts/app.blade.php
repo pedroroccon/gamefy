@@ -4,14 +4,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name') }} - Video Games Database</title>
+        <title>@yield('title', config('app.name')) - Video Games Database</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+        
+        <!-- Styles and favicons -->
+        <link rel="icon" href="{{ asset('favicon.svg') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/fontawesome.css') }}">
-
+        
         @livewireStyles
 
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -49,7 +52,7 @@
                     <span>Powered by <a href="https://www.igdb.com/discover" target="_blank" class="underline hover:text-gray-400">IGDB</a></span>
                     <span><a href="https://github.com/pedroroccon/gamefy" target="_blank" class="underline hover:text-gray-400"><i class="fab fa-github fa-fw mr-2"></i>Github</a></span>
                     <span>Developed by <a href="mailto:pedro@pedroroccon.com.br" class="underline hover:text-gray-400">Pedro Roccon</a></span>
-                    <span>Icons by Font Awesome and Freepik</span>
+                    <span>Icons by <a href="https://fontawesome.com/" target="_blank" class="underline hover:text-gray-400">Font Awesome</a>, <a href="https://freepik.com" target="_blank" class="underline hover:text-gray-400">Freepik</a> and <a href="https://www.flaticon.com/authors/mynamepong" target="_blank" class="underline hover:text-gray-400">mynamepong</a></span>
                 </div>
             </div>
         </footer>
