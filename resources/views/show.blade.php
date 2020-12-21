@@ -68,7 +68,7 @@
 
                         @if ($game['social']['instagram'])
                             <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
-                                <a href="{{ $game['social']['instagram']['url'] }}" class="hover:text-gray-400">
+                                <a href="{{ $game['social']['instagram']['url'] }}" class="hover:text-gray-400" target="_blank">
                                     <i class="fab fa-instagram fa-fw"></i>
                                 </a>
                             </div>
@@ -76,7 +76,7 @@
 
                         @if ($game['social']['twitter'])
                             <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
-                                <a href="{{ $game['social']['twitter']['url'] }}" class="hover:text-gray-400">
+                                <a href="{{ $game['social']['twitter']['url'] }}" class="hover:text-gray-400" target="_blank">
                                     <i class="fab fa-twitter fa-fw"></i>
                                 </a>
                             </div>
@@ -84,7 +84,7 @@
 
                         @if ($game['social']['facebook'])
                             <div class="w-8 h-8 bg-gray-800 rounded-full flex justify-center items-center">
-                                <a href="{{ $game['social']['facebook']['url'] }}" class="hover:text-gray-400">
+                                <a href="{{ $game['social']['facebook']['url'] }}" class="hover:text-gray-400" target="_blank">
                                     <i class="fab fa-facebook-f fa-fw"></i>
                                 </a>
                             </div>
