@@ -1,5 +1,17 @@
+![Application screenshot](http://pedroroccon.com.br/gamefy/images/screenshot.png "App screenshot")
+
 # Gamefy
 Gamefy is a simple application built in Laravel that can fetch the games stored in IGDB database via API. It was created to learn more about HTTP client, Tailwind CSS, Livewire and Alpine.js.
+
+## Setting the application
+To setup the application, you should install the dependencies and configure an API key for IGDB.
+To install the dependencies, follow the steps:
+
+1. Open your terminal and locate the project's folder
+2. Run php composer.phar install (or composer install if you have Composer installed globally)
+3. Create a .env file with command: cp -R .env.example .env
+3. Generate the application key with: php artisan key:generate
+4. Give permissions to the folders: chmod 0777 -R bootstrap/ storage/ database/
 
 ## Setting the API key for IGDB
 To create your own API key, you should follow the steps:
