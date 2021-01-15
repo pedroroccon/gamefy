@@ -15,7 +15,8 @@
         "laravel/framework": "^8.0",
         "laravel/legacy-factories": "^1.1",
         "laravel/tinker": "^2.0",
-        "livewire/livewire": "^2.1"
+        "livewire/livewire": "^2.1",
+        "spatie/data-transfer-object": "^2.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
