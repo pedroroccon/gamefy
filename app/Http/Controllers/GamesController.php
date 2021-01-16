@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\GameData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -56,9 +57,7 @@ class GamesController extends Controller
 
         abort_if( ! $game, 404);
 
-        $game = $this->formatGameForView($game[0]);
-        
-        return view('show', compact('game'));
+        return view('show')->with(['game' => GameData::fromApi($game[0])]);
     }
 
     protected function formatGameForView($game)
