@@ -169,12 +169,16 @@
 
         <div class="similar-games-container pb-12 mt-8">
             <h2 class="text-blue-500 uppercase tracking-wide font-semibold">Similar games</h2>
-
-            <div class="popular-games text-sm grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-6 gap-12 pb-16">
-                @foreach($game->similar_games as $similar)
-                    <x-game-card :game="$similar"/>
-                @endforeach
-            </div>
+            
+            @if ( ! $game->similar_games->isEmpty())
+                <div class="popular-games text-sm grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-6 gap-12 pb-16">
+                    @foreach($game->similar_games as $similar)
+                        <x-game-card :game="$similar"/>
+                    @endforeach
+                </div>
+            @else
+                <small>Similar games not found.</small>
+            @endif
         </div>
 
         @push('scripts')

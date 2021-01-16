@@ -19,11 +19,11 @@ class PopularGames extends Component
                 "
                     fields name, cover.url, first_release_date, total_rating_count, platforms.abbreviation, rating, slug;
                     where platforms = (48,49,130,6)
-                    & (first_release_date >= " . now()->subMonths(2)->timestamp . "
+                    & (first_release_date >= " . now()->subYear()->timestamp . "
                     & first_release_date < " . now()->subWeek()->timestamp . "
                     & total_rating_count > 5);
                     sort total_rating_count desc;
-                    limit 12;", 'text/plain'
+                    limit 18;", 'text/plain'
                 )->post(config('services.igdb.endpoint'))->json();
         });
 

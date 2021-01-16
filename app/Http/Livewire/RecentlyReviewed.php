@@ -17,7 +17,7 @@ class RecentlyReviewed extends Component
             "
                 fields name, cover.url, first_release_date, total_rating_count, platforms.abbreviation, rating, rating_count, summary, slug;
                 where platforms = (48,49,130,6) 
-                & (first_release_date >= " . now()->subMonths(2)->timestamp . "
+                & (first_release_date >= " . now()->subMonths(6)->timestamp . "
                 & first_release_date < " . now()->timestamp . "
                 & rating_count > 5);
                 sort total_rating_count desc;
