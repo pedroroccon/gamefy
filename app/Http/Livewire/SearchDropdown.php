@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\GameDataCollection;
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -18,7 +19,7 @@ class SearchDropdown extends Component
     public function render()
     {
         if (strlen($this->search) > $this->searchLengthBeforeStart) {
-            $resultsUnformatted = Http::withHeaders(config('services.igdb.auth'))->withBody(
+            $results = Http::withHeaders(config('services.igdb.auth'))->withBody(
                 "
                     search \"{$this->search}\";
                     fields name, slug, cover.url;
@@ -27,19 +28,8 @@ class SearchDropdown extends Component
                     ->post(config('services.igdb.endpoint'))
                     ->json();
 
-            $this->results = $this->formatForView($resultsUnformatted);
+            $this->results = GameDataCollection::create($results);
         }
         return view('livewire.search-dropdown');
-    }
-
-    protected function formatForView($games)
-    {
-        return collect($games)->map(function($game) {
-            return collect($game)->merge([
-                'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
-                // 'rating' => isset($game['rating']) ? round($game['rating']) : null, 
-                // 'platforms' => implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()), 
-            ]);
-        });
     }
 }

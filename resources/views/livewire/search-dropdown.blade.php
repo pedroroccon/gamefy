@@ -31,14 +31,14 @@
                     @foreach($results as $game)
                         <li class="border-b border-gray-700">
                             <a 
-                                href="{{ url('/games/' . $game['slug']) }}" 
+                                href="{{ url('/games/' . $game->slug) }}" 
                                 class="block hover:bg-gray-700 px-3 py-3 flex items-center transition ease-in-out duration-150"
                                 @if ($loop->last) @keydown.tab="isVisible = false" @endif
                             >
-                                @if (isset($game['cover']))    
-                                    <img src="{{ $game['cover_image_url'] }}" alt="Game Cover" class="w-10 rounded mr-5">
+                                @if (isset($game->cover))    
+                                    <img src="{{ $game->cover_image_url }}" alt="Game Cover" class="w-10 rounded mr-5">
                                 @endif
-                                <span>{{ $game['name'] }}</span>
+                                <span>{{ $game->name }}</span>
                             </a>
                         </li>
                     @endforeach

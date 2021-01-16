@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\GameDataCollection;
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ class PopularGames extends Component
 
     public function loadPopularGames()
     {
-        $popularGamesUnformatted = cache()->remember('popular-games', 7, function() {
+        $popularGames = cache()->remember('popular-games', 7, function() {
             return Http::withHeaders(config('services.igdb.auth'))->withBody(
                 "
                     fields name, cover.url, first_release_date, total_rating_count, platforms.abbreviation, rating, slug;
@@ -26,13 +27,14 @@ class PopularGames extends Component
                 )->post(config('services.igdb.endpoint'))->json();
         });
 
-        $this->popularGames = $this->formatForView($popularGamesUnformatted);
+        $this->popularGames = GameDataCollection::create($popularGames);
+
         collect($this->popularGames)->filter(function($game) {
-            return $game['rating'];
+            return $game->rating;
         })->each(function($game) {
             $this->emit('gameWithRatingFetched', [
-                'slug' => $game['slug'], 
-                'rating' => $game['rating'] / 100
+                'slug' => $game->slug, 
+                'rating' => $game->rating / 100
             ]);
         });
 
@@ -41,16 +43,5 @@ class PopularGames extends Component
     public function render()
     {
         return view('livewire.popular-games');
-    }
-
-    protected function formatForView($games)
-    {
-        return collect($games)->map(function($game) {
-            return collect($game)->merge([
-                'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
-                'rating' => isset($game['rating']) ? round($game['rating']) : null, 
-                'platforms' => implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()), 
-            ]);
-        });
     }
 }

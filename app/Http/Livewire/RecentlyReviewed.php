@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\GameDataCollection;
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -12,7 +13,7 @@ class RecentlyReviewed extends Component
 
     public function loadRecentlyReviewed()
     {        
-        $recentlyReviewedUnformatted = Http::withHeaders(config('services.igdb.auth'))->withBody(
+        $recentlyReviewed = Http::withHeaders(config('services.igdb.auth'))->withBody(
             "
                 fields name, cover.url, first_release_date, total_rating_count, platforms.abbreviation, rating, rating_count, summary, slug;
                 where platforms = (48,49,130,6) 
@@ -24,14 +25,14 @@ class RecentlyReviewed extends Component
             ", 'text/plain'
         )->post(config('services.igdb.endpoint'))->json();
 
-        $this->recentlyReviewed = $this->formatForView($recentlyReviewedUnformatted);
+        $this->recentlyReviewed = GameDataCollection::create($recentlyReviewed);
         
         collect($this->recentlyReviewed)->filter(function($game) {
-            return $game['rating'];
+            return $game->rating;
         })->each(function($game) {
             $this->emit('reviewGameWithRatingFetched', [
-                'slug' => 'review_' . $game['slug'], 
-                'rating' => $game['rating'] / 100
+                'slug' => 'review_' . $game->slug, 
+                'rating' => $game->rating / 100
             ]);
         });
     }
@@ -39,16 +40,5 @@ class RecentlyReviewed extends Component
     public function render()
     {
         return view('livewire.recently-reviewed');
-    }
-
-    protected function formatForView($games)
-    {
-        return collect($games)->map(function($game) {
-            return collect($game)->merge([
-                'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
-                'rating' => isset($game['rating']) ? round($game['rating']) : null, 
-                'platforms' => implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()), 
-            ]);
-        });
     }
 }
