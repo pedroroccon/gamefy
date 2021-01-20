@@ -11,114 +11,148 @@ class GameData extends DataTransferObject
 {
 
     /**
+     * Defines the resource ID.
      * 
-     * @var
+     * @var int
      */
     public int $id;
 
     /**
+     * Defines the resource aggregated rating.
      * 
-     * @var 
+     * @var float
      */
     public ?float $aggregated_rating;
 
     /**
+     * Defines the avaliable covers.
      * 
-     * @var 
+     * @var array
      */
     public ?array $cover;
 
     /**
+     * Defines the cover image URL.
      * 
-     * @var 
+     * @var string
      */
     public ?string $cover_image_url;
 
     /**
+     * Defines the resource first release date.
      * 
-     * @var 
+     * @var \Carbon\Carbon
      */
-    public $first_release_date;
+    public ?Carbon $first_release_date;
 
     /**
+     * Defines the resource genres.
      * 
-     * @var 
+     * @var string
      */
     public ?string $genres;
 
     /**
+     * Defines the resource involved companies.
      * 
-     * @var 
+     * @var string
      */
     public ?string $involved_companies;
 
     /**
+     * Defines the resource name.
      * 
-     * @var 
+     * @var string
      */
     public ?string $name;
 
     /**
+     * Defines the resource avaliable platforms.
      * 
-     * @var 
+     * @var string
      */
     public ?string $platforms;
 
     /**
+     * Defines the resource rating.
      * 
-     * @var 
+     * @var float
      */
     public ?float $rating;
 
     /**
+     * Defines the resource screenshots.
      * 
-     * @var 
+     * @var \Illuminate\Support\Collection
      */
     public ?Collection $screenshots;
 
     /**
+     * Define the resource similar games.
      * 
-     * @var 
+     * @var \Illuminate\Support\Collection
      */
     public ?Collection $similar_games;
 
     /**
+     * Defines the resource slug.
      * 
-     * @var 
+     * @var string
      */
     public ?string $slug = '';
 
     /**
+     * Define the resource summary.
      * 
-     * @var 
+     * @var string
      */
     public ?string $summary;
 
     /**
+     * Defines the resource rating cout.
      * 
-     * @var 
+     * @var int
      */
     public ?int $total_rating_count;
 
     /**
+     * Defines the resource videos.
      * 
-     * @var 
+     * @var array
      */
     public ?array $videos;
 
     /**
+     * Defines the resource websites.
      * 
-     * @var 
+     * @var array
      */
     public ?array $websites;
 
+    /**
+     * Defines the resource trailer.
+     * 
+     * @var string
+     */
     public ?string $trailer;
 
+    /**
+     * Defines the resource social media websites.
+     * 
+     * @var array
+     */
     public ?array $social;
 
+    /**
+     * Define the resource rating count.
+     * 
+     * @var int
+     */
     public ?int $rating_count;
 
     /**
+     * Gets the API response and 
+     * normalizes.
      * 
      * @return self
      */
