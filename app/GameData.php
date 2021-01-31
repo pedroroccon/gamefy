@@ -20,7 +20,7 @@ class GameData extends DataTransferObject
     /**
      * Defines the resource aggregated rating.
      * 
-     * @var float
+     * @var float|int|null
      */
     public ?float $aggregated_rating;
 
@@ -41,7 +41,7 @@ class GameData extends DataTransferObject
     /**
      * Defines the resource first release date.
      * 
-     * @var \Carbon\Carbon
+     * @var \Carbon\Carbon|null
      */
     public ?Carbon $first_release_date;
 
@@ -55,7 +55,7 @@ class GameData extends DataTransferObject
     /**
      * Defines the resource involved companies.
      * 
-     * @var string
+     * @var string|null
      */
     public ?string $involved_companies;
 
@@ -76,14 +76,14 @@ class GameData extends DataTransferObject
     /**
      * Defines the resource rating.
      * 
-     * @var float
+     * @var float|int
      */
     public ?float $rating;
 
     /**
      * Defines the resource screenshots.
      * 
-     * @var \Illuminate\Support\Collection
+     * @var \Illuminate\Support\Collection|null
      */
     public ?Collection $screenshots;
 
@@ -104,49 +104,49 @@ class GameData extends DataTransferObject
     /**
      * Define the resource summary.
      * 
-     * @var string
+     * @var string|null
      */
     public ?string $summary;
 
     /**
      * Defines the resource rating cout.
      * 
-     * @var int
+     * @var int|null
      */
     public ?int $total_rating_count;
 
     /**
      * Defines the resource videos.
      * 
-     * @var array
+     * @var array|null
      */
     public ?array $videos;
 
     /**
      * Defines the resource websites.
      * 
-     * @var array
+     * @var array|null
      */
     public ?array $websites;
 
     /**
      * Defines the resource trailer.
      * 
-     * @var string
+     * @var string|null
      */
     public ?string $trailer;
 
     /**
      * Defines the resource social media websites.
      * 
-     * @var array
+     * @var array|null
      */
     public ?array $social;
 
     /**
      * Define the resource rating count.
      * 
-     * @var int
+     * @var int|null
      */
     public ?int $rating_count;
 

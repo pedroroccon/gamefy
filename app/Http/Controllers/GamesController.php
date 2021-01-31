@@ -60,45 +60,6 @@ class GamesController extends Controller
         return view('show')->with(['game' => GameData::fromApi($game[0])]);
     }
 
-    protected function formatGameForView($game)
-    {
-        // TODO: Sometimes we don't have the fields like videos, websites, etc... We should refactor this part of code.
-        return collect($game)->merge([
-            'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
-            'genres' => implode(', ', collect($game['genres'])->pluck('name')->toArray()), 
-            'involved_companies' => $game['involved_companies'][0]['company']['name'], 
-            'platforms' => implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()), 
-            'rating' => isset($game['rating']) ? round($game['rating']) : 0, 
-            'aggregated_rating' => isset($game['aggregated_rating']) ? round($game['aggregated_rating']) : 0, 
-            'trailer' => isset($game['videos']) ? 'https://youtube.com/embed/' . $game['videos'][0]['video_id'] : null, 
-            'screenshots' => collect($game['screenshots'])->map(function($screenshot) {
-                return [
-                    'big' => Str::replaceFirst('thumb', 'screenshot_huge', $screenshot['url']), 
-                    'huge' => isset($screenshot['url']) ? Str::replaceFirst('thumb', 'screenshot_big', $screenshot['url']) : asset('images/sample-game-cover.png')
-                ];
-            })->take(9), 
-            'similar_games' => collect($game['similar_games'])->map(function($game) {
-                return collect($game)->merge([
-                    'cover_image_url' => isset($game['cover']) ? Str::replaceFirst('thumb', 'cover_big', $game['cover']['url']) : asset('images/sample-game-cover.png'), 
-                    'rating' => isset($game['rating']) ? round($game['rating']) : null, 
-                    'platforms' => isset($game['platforms']) ? implode(', ', collect($game['platforms'])->pluck('abbreviation')->toArray()) : null, 
-                ]);
-            })->take(6), 
-            'social' => [
-                'website' => collect($game['websites'])->first(), 
-                'facebook' => collect($game['websites'])->filter(function ($website) {
-                    return Str::contains($website['url'], 'facebook');
-                })->first(), 
-                'twitter' => collect($game['websites'])->filter(function ($website) {
-                    return Str::contains($website['url'], 'twitter');
-                })->first(), 
-                'instagram' => collect($game['websites'])->filter(function ($website) {
-                    return Str::contains($website['url'], 'instagram');
-                })->first(), 
-            ]
-        ]);
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
