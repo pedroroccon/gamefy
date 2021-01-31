@@ -69,7 +69,7 @@ class GameData extends DataTransferObject
     /**
      * Defines the resource avaliable platforms.
      * 
-     * @var string
+     * @var string|null
      */
     public ?string $platforms;
 
